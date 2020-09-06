@@ -87,7 +87,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="Home/index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -113,6 +113,7 @@
 
                         @Html.ActionLink("Pinturas", "Index", "Product", new { area = "" }, new { @class = "collapse-item" })
                         @Html.ActionLink("Artistas", "Index", "Artist", new { area = "" }, new { @class = "collapse-item" })
+                        @Html.ActionLink("Acerca de", "About", "Home", new { area = "" }, new { @class = "collapse-item" })
                     </div>
                 </div>
             </li>
