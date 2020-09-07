@@ -13,5 +13,10 @@ namespace ArtShop.UI.WebSite.Controllers
         {
             return View();
         }
+
+        public ActionResult ABMView()
+        {
+            return View();
+        }
     }
 }

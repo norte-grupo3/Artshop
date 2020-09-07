@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace ArtShop.UI.WebSite.Controllers
 {
-    public class ProductController : Controller
+    public class DashboardController : Controller
     {
-        // GET: Product
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult ABMView()
+        // GET: Dashboard
+        public ActionResult Indicadores()
         {
             return View();
         }
