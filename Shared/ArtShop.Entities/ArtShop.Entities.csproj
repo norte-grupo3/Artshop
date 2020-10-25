@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Artist.cs" />
+    <Compile Include="Model\Cart.cs" />
     <Compile Include="Model\CartItem.cs" />
     <Compile Include="Model\IdentityBase.cs" />
     <Compile Include="Model\OrderDetail.cs" />

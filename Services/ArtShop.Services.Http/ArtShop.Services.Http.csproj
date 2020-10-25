@@ -51,12 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistComponent.cs" />
+    <Compile Include="ArtistService.cs" />
+    <Compile Include="CartComponent.cs" />
+    <Compile Include="CartService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Business\ArtShop.Business\ArtShop.Business.csproj">
       <Project>{1809C1BC-A45F-4A71-B229-A529689EE4B4}</Project>
       <Name>ArtShop.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\ArtShop.Data\ArtShop.Data.csproj">
+      <Project>{E8756EC0-B6DA-4513-8B62-F694CDD132A3}</Project>
+      <Name>ArtShop.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\ArtShop.Entities\ArtShop.Entities.csproj">
       <Project>{549B3D8D-7C35-4F25-92E6-DF9D195310E0}</Project>
