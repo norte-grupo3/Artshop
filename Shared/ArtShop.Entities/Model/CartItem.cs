@@ -5,13 +5,16 @@
 //====================================================================================================
 
 
+using System;
+
 namespace ArtShop.Entities.Model
 {
+    [Serializable]
     public class CartItem : IdentityBase
     {
         public int CartId { get; set; }
         public int ProductId { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
     }
 }
