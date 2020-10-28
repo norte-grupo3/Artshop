@@ -12,12 +12,6 @@ namespace ArtShop.Entities.Model
     [Serializable]
     public class CartItem : IdentityBase
     {
-        public CartItem()
-        {
-            Cart = new Cart();
-            Product = new Product();
-        }
-
         public int CartId { get; set; }
         public int ProductId { get; set; }
         public double Price { get; set; }
