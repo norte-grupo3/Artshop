@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtShop.UI.Process;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,13 @@ namespace ArtShop.UI.WebSite.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult GetArtists()
+        {
+            var ap = new ArtistProcess();
+            var list = ap.ListarTodos();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

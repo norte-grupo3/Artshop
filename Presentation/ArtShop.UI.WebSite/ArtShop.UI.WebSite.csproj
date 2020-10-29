@@ -2033,6 +2033,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.5.1.debug.js" />
+    <Content Include="Scripts\knockout-3.5.1.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2078,6 +2082,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\ArtShop.Entities\ArtShop.Entities.csproj">
+      <Project>{549B3D8D-7C35-4F25-92E6-DF9D195310E0}</Project>
+      <Name>ArtShop.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ArtShop.UI.Process\ArtShop.UI.Process.csproj">
+      <Project>{9F96235C-A960-4BE1-969B-5E3C1C17EC3A}</Project>
+      <Name>ArtShop.UI.Process</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

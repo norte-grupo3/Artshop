@@ -1,13 +1,52 @@
 ﻿
 @{
     ViewBag.Title = "Gestion de Artistas";
-
 }
 
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">ABM Artistas</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>FirstName    </th>
+            <th>LastName     </th>
+            <th>LifeSpan     </th>
+            <th>Country      </th>
+            <th>Description  </th>
+            <th>TotalProducts</th>
+        </tr>
+        <tbody data-bind="foreach: Artists">
+            <tr>
+                <th data-bind="text: FirstName"></th>
+                <th data-bind="text: LastName"></th>
+                <th data-bind="text: LifeSpan"></th>
+                <th data-bind="text: Country"></th>
+                <th data-bind="text: Description"></th>
+                <th data-bind="text: TotalProducts"></th>
+            </tr>
+        </tbody>
+    </table>
 
 </div>
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var appViewModel = function () {
+            var self = this;
+            self.Artists = ko.mapping.fromJS([]);
+
+            $.getJSON("Artist/GetArtists",
+                function (data) {
+                    ko.mapping.fromJS(data, self.Artists);
+                });
+        }
+
+        var viewModel = new appViewModel();
+        ko.applyBindings(viewModel);
+    </script>
+}
+
