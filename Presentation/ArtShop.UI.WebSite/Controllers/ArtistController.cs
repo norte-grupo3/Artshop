@@ -1,4 +1,5 @@
-﻿using ArtShop.UI.Process;
+﻿using ArtShop.Entities.Model;
+using ArtShop.UI.Process;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,18 @@ namespace ArtShop.UI.WebSite.Controllers
         {
             var ap = new ArtistProcess();
             var list = ap.ListarTodos();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public JsonResult AddArtist(Artist artist)
+        {
+            var ap = new ArtistProcess();
+            var list = ap.AgregarAtista(artist);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

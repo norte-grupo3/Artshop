@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 namespace ArtShop.Entities.Model
 {
     [Serializable]
+    [DataContract]
     public class IdentityBase
     {
         [Key]
+        [DataMember]
         [Browsable(false)]
         public int Id { get; set; }
 
