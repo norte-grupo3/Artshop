@@ -49,6 +49,7 @@
     <Compile Include="ArtistDAC.cs" />
     <Compile Include="CartItemDAC.cs" />
     <Compile Include="DataAccessComponent.cs" />
+    <Compile Include="ProductDAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

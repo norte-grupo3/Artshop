@@ -24,14 +24,17 @@ namespace ArtShop.Entities.Model
             this.OrderDetail = new HashSet<OrderDetail>();
             this.Rating = new HashSet<Rating>();
         }
-
+        [DataMember]
         public string Title { get; set; }
+        [DataMember]
         public string Description { get; set; }
+        [DataMember]
         public string Image { get; set; }
+        [DataMember]
         public double Price { get; set; }
         public int QuantitySold { get; set; }
         public double AvgStars { get; set; }
-
+        [DataMember]
         public virtual Artist Artist { get; set; }
         public virtual ICollection<CartItem> CartItem { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
