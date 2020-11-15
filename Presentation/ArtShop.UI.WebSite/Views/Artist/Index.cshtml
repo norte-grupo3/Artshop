@@ -7,22 +7,30 @@
 <div class="container-fluid">
 
     <table class="table table-hover">
-        <tr>
-            <th>FirstName    </th>
-            <th>LastName     </th>
-            <th>LifeSpan     </th>
-            <th>Country      </th>
-            <th>Description  </th>
-            <th>TotalProducts</th>
-        </tr>
+        <thead>
+            <tr>
+                <th data-visible="false">Id    </th>
+                <th>FirstName    </th>
+                <th>LastName     </th>
+                <th>LifeSpan     </th>
+                <th>Country      </th>
+                <th>Description  </th>
+                <th>TotalProducts</th>
+                <th></th>
+            </tr>
+        </thead>
         <tbody data-bind="foreach: Artists">
             <tr>
+                <th data-bind="text: Id"></th>
                 <th data-bind="text: FirstName"></th>
                 <th data-bind="text: LastName"></th>
                 <th data-bind="text: LifeSpan"></th>
                 <th data-bind="text: Country"></th>
                 <th data-bind="text: Description"></th>
                 <th data-bind="text: TotalProducts"></th>
+                <th>
+                    <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
+                </th>
             </tr>
         </tbody>
     </table>
@@ -39,17 +47,32 @@
 
     <script>
         var appViewModel = function () {
+            this.Artists = ko.observableArray();
+            this.loadArtists();
+        };
+
+        appViewModel.prototype.loadArtists = function () {
             var self = this;
             self.Artists = ko.mapping.fromJS([]);
+            $.getJSON("Artist/GetArtists", function (data) {
+                ko.mapping.fromJS(data, self.Artists);
+            });
+        };
 
-            $.getJSON("Artist/GetArtists",
-                function (data) {
-                    ko.mapping.fromJS(data, self.Artists);
+        appViewModel.prototype.RemoveArtist = function (data) {
+            $.ajax({
+                type: 'GET',
+                url: 'Artist/RemoveArtist/' + data.Id(),
+                success: function (result) {
+                }
+            }).fail(
+                function (xhr, textStatus, err) {
+                    alert(err);
                 });
-        }
+        };
 
-        var viewModel = new appViewModel();
-        ko.applyBindings(viewModel);
+        // Apply bindings
+        ko.applyBindings(new appViewModel());
     </script>
 }
 

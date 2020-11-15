@@ -20,5 +20,11 @@ namespace ArtShop.UI.Process
             var response = HttpPost<Artist>("api/Artist/Agregar", artist, MediaType.Json);
             return response;
         }
+
+        public Artist EliminarAtista(int id)
+        {
+            var response = HttpDelete<Artist>("api/Artist/Eliminar?id=" + id, MediaType.Json);
+            return response;
+        }
     }
 }
