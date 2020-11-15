@@ -1,0 +1,79 @@
+﻿<table class="table table-hover">
+    <tr>
+        <td>FirstName    </td>
+        <td><input data-bind="textInput: FirstName" />
+        <td />
+    </tr>
+    <tr>
+        <td>LastName     </td>
+        <td><input data-bind="textInput: LastName" />
+        <td />
+    </tr>
+    <tr>
+        <td>LifeSpan     </td>
+        <td><input data-bind="textInput: LifeSpan" />
+        <td />
+    </tr>
+    <tr>
+        <td>Country      </td>
+        <td><input data-bind="textInput: Country" />
+        <td />
+    </tr>
+    <tr>
+        <td>Description  </td>
+        <td><input data-bind="textInput: Description" />
+        <td />
+    </tr>
+    <tr>
+        <td>TotalProducts</td>
+        <td><input data-bind="textInput: TotalProducts" />
+        <td />
+    </tr>
+</table>
+
+<input type="button" value="Agregar artista" data-bind="click: AddArtist" class="btn btn-primary" />
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var appViewModel = function () {
+            var self = this;
+
+            self.FirstName = ko.observable('');
+            self.LastName = ko.observable('');
+            self.LifeSpan = ko.observable('');
+            self.Country = ko.observable('');
+            self.Description = ko.observable('');
+            self.TotalProducts = ko.observable('');
+
+            self.AddArtist = function () {
+                $.ajax({
+                    url: '@Url.Action("AddArtist", "Artist")',
+                    type: 'post',
+                    data: ko.toJSON(this),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        self.FirstName('');
+                        self.LastName('');
+                        self.LifeSpan('');
+                        self.Country('');
+                        self.Description('');
+                        self.TotalProducts('');
+                    }
+                }).fail(
+                    function (xhr, textStatus, err) {
+                        alert(err);
+                    });
+            };
+        }
+
+        var viewModel = new appViewModel();
+        ko.applyBindings(viewModel);
+    </script>
+}

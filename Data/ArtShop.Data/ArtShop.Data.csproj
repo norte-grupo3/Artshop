@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartDAC.cs" />
+    <Compile Include="ArtistDAC.cs" />
+    <Compile Include="CartItemDAC.cs" />
+    <Compile Include="DataAccessComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

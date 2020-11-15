@@ -1,13 +1,85 @@
 ﻿
 @{
     ViewBag.Title = "Gestion de Artistas";
-
 }
 
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">ABM Artistas</h1>
-
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th data-visible="false">Id    </th>
+                <th>FirstName    </th>
+                <th>LastName     </th>
+                <th>LifeSpan     </th>
+                <th>Country      </th>
+                <th>Description  </th>
+                <th>TotalProducts</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Artists">
+            <tr>
+                <th data-bind="text: Id"></th>
+                <th data-bind="text: FirstName"></th>
+                <th data-bind="text: LastName"></th>
+                <th data-bind="text: LifeSpan"></th>
+                <th data-bind="text: Country"></th>
+                <th data-bind="text: Description"></th>
+                <th data-bind="text: TotalProducts"></th>
+                <th>
+                    <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<div>
+    @Html.ActionLink("Crear artista", "Create")
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var appViewModel = function () {
+            this.Artists = ko.observableArray([]);
+            this.loadArtists();
+        };
+
+        appViewModel.prototype.loadArtists = function () {
+            var self = this;
+            self.Artists = ko.mapping.fromJS([]);
+            $.getJSON("Artist/GetArtists", function (data) {
+                ko.mapping.fromJS(data, self.Artists);
+            });
+        };
+
+        appViewModel.prototype.RemoveArtist = function (data) {
+            $.ajax({
+                type: 'GET',
+                url: 'Artist/RemoveArtist/' + data.Id(),
+                success: function (result) {
+                    ko.utils.arrayFirst(self.Artists(), function (item) {
+                        if (item) {
+                            if (item.Id() === data.Id()) {
+                                self.Artists.remove(item);
+                            }
+                        }
+                    });
+                }
+            }).fail(
+                function (xhr, textStatus, err) {
+                    alert(err);
+                });
+        };
+
+        // Apply bindings
+        ko.applyBindings(new appViewModel());
+    </script>
+}
+

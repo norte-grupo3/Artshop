@@ -4,15 +4,20 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ArtShop.Entities.Model
 {
+    [Serializable]
+    [DataContract]
     public class IdentityBase
     {
         [Key]
-        public int Id { get; set; }    
+        [DataMember]
+        [Browsable(false)]
+        public int Id { get; set; }
 
 
         //Muestra los valores de las propiedades con fines de depuración.
