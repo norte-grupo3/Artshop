@@ -35,11 +35,10 @@ namespace ArtShop.UI.WebSite.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult RemoveArtist(int id)
+        public void RemoveArtist(int id)
         {
             var ap = new ArtistProcess();
-            var list = ap.EliminarAtista(id);
-            return Json(list, JsonRequestBehavior.AllowGet);
+            ap.EliminarAtista(id);
         }
     }
 }
