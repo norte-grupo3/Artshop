@@ -16,6 +16,11 @@ namespace ArtShop.UI.WebSite.Controllers
             return View();
         }
 
+        public ActionResult IndexFront()
+        {
+            return View();
+        }
+
         public JsonResult GetArtists()
         {
             var ap = new ArtistProcess();

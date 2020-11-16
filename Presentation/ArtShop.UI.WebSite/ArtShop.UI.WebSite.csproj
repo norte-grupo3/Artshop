@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -184,6 +185,14 @@
   <ItemGroup>
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\sb-admin-2.min.css" />
+    <Content Include="Content\img\Artista1.png" />
+    <Content Include="Content\img\Artista2.png" />
+    <Content Include="Content\img\Artista3.png" />
+    <Content Include="Content\img\Artista4.png" />
+    <Content Include="Content\img\Obra1.png" />
+    <Content Include="Content\img\Obra2.png" />
+    <Content Include="Content\img\Obra3.png" />
+    <Content Include="Content\img\Obra4.png" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
@@ -2076,6 +2085,8 @@
     <Content Include="Views\Artist\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
+    <Content Include="Views\Artist\IndexFront.cshtml" />
+    <Content Include="Views\Dashboard\Indicadores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
