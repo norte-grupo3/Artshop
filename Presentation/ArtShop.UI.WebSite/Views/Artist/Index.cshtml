@@ -47,30 +47,31 @@
 
     <script>
         var appViewModel = function () {
-            this.Artists = ko.observableArray([]);
-            this.loadArtists();
-        };
-
-        appViewModel.prototype.loadArtists = function () {
+            var artist = {
+                Id: ko.observable(),
+                FirstName: ko.observable(),
+                LastName: ko.observable(),
+                LifeSpan: ko.observable(),
+                Country: ko.observable(),
+                Decription: ko.observable(),
+                TotalProducts: ko.observable()
+            }
+            this.RemoveArtist = this.RemoveArtist.bind(this);
             var self = this;
             self.Artists = ko.mapping.fromJS([]);
             $.getJSON("Artist/GetArtists", function (data) {
-                ko.mapping.fromJS(data, self.Artists);
+                ko.mapping.fromJS(data, artist, self.Artists);
             });
         };
 
         appViewModel.prototype.RemoveArtist = function (data) {
+            var self = this;
             $.ajax({
                 type: 'GET',
                 url: 'Artist/RemoveArtist/' + data.Id(),
                 success: function (result) {
-                    ko.utils.arrayFirst(self.Artists(), function (item) {
-                        if (item) {
-                            if (item.Id() === data.Id()) {
-                                self.Artists.remove(item);
-                            }
-                        }
-                    });
+                    console.log(self.Artists);
+                    self.Artists.remove(data);
                 }
             }).fail(
                 function (xhr, textStatus, err) {
