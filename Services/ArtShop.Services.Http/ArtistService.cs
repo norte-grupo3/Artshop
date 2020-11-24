@@ -58,12 +58,12 @@ namespace ArtShop.Services.Http
 
         [HttpPut]
         [Route("Editar")]
-        public void Edit(Artist artist)
+        public Artist Edit(Artist artist)
         {
             try
             {
                 var bc = new ArtistComponent();
-                bc.Edit(artist);
+                return bc.Edit(artist);
             }
             catch (Exception ex)
             {

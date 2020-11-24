@@ -37,10 +37,12 @@ namespace ArtShop.Services.Http
             return result;
         }
 
-        public void Edit(Artist artist)
+        public Artist Edit(Artist artist)
         {
+            Artist result = default(Artist);
             var artistDAC = new ArtistDAC();
-            artistDAC.UpdateById(artist);
+            result = artistDAC.UpdateById(artist);
+            return result;
         }
     }
 }

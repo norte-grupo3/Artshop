@@ -16,6 +16,13 @@ namespace ArtShop.UI.WebSite.Controllers
             return View();
         }
 
+        public JsonResult GetArtist(int Id)
+        {
+            var ap = new ArtistProcess();
+            var list = ap.ListarUno(Id);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetArtists()
         {
             var ap = new ArtistProcess();
@@ -39,6 +46,13 @@ namespace ArtShop.UI.WebSite.Controllers
         {
             var ap = new ArtistProcess();
             ap.EliminarAtista(id);
+        }
+
+        public JsonResult EditArtist(Artist artist)
+        {
+            var ap = new ArtistProcess();
+            var list = ap.EditarAtista(artist);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }
