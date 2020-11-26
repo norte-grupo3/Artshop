@@ -3,41 +3,42 @@
     ViewBag.Title = "Gestion de Artistas";
 }
 
+<div id="content">
+    <div class="container-fluid">
+        <table class="table-responsive">
+            <thead>
+                <tr>
+                    <th style="display:none;">Id    </th>
+                    <th>FirstName    </th>
+                    <th>LastName     </th>
+                    <th>LifeSpan     </th>
+                    <th>Country      </th>
+                    <th>Description  </th>
+                    <th>TotalProducts</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Artists">
+                <tr>
+                    <td style="display:none;"><input class='required' data-bind='value: Id, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: FirstName, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: LastName, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: LifeSpan, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: Country, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: Description, uniqueName: true' /></td>
+                    <td><input class='required' data-bind='value: TotalProducts, uniqueName: true' /></td>
+                    <td>
+                        <input data-bind="click: $parent.EditArtist" type="button" value="Editar" class="btn btn-primary" />
+                        <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-<div class="container-fluid">
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th data-visible="false">Id    </th>
-                <th>FirstName    </th>
-                <th>LastName     </th>
-                <th>LifeSpan     </th>
-                <th>Country      </th>
-                <th>Description  </th>
-                <th>TotalProducts</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: Artists">
-            <tr>
-                <th data-bind="text: Id"></th>
-                <th data-bind="text: FirstName"></th>
-                <th data-bind="text: LastName"></th>
-                <th data-bind="text: LifeSpan"></th>
-                <th data-bind="text: Country"></th>
-                <th data-bind="text: Description"></th>
-                <th data-bind="text: TotalProducts"></th>
-                <th>
-                    <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
-                </th>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div>
-    @Html.ActionLink("Crear artista", "Create")
+        <div>
+            @Html.ActionLink("Crear artista", "Create")
+        </div>
+    </div>
 </div>
 
 @section scripts
@@ -47,30 +48,50 @@
 
     <script>
         var appViewModel = function () {
-            this.Artists = ko.observableArray([]);
-            this.loadArtists();
-        };
-
-        appViewModel.prototype.loadArtists = function () {
+            var artist = {
+                Id: ko.observable(),
+                FirstName: ko.observable(),
+                LastName: ko.observable(),
+                LifeSpan: ko.observable(),
+                Country: ko.observable(),
+                Decription: ko.observable(),
+                TotalProducts: ko.observable()
+            }
+            this.RemoveArtist = this.RemoveArtist.bind(this);
+            this.EditArtist = this.EditArtist.bind(this);
             var self = this;
             self.Artists = ko.mapping.fromJS([]);
             $.getJSON("Artist/GetArtists", function (data) {
-                ko.mapping.fromJS(data, self.Artists);
+                ko.mapping.fromJS(data, artist, self.Artists);
             });
         };
 
+        appViewModel.prototype.EditArtist = function (data) {
+            var self = this;
+            console.log(data);
+            $.ajax({
+                type: 'GET',
+                url: 'Artist/EditArtist',
+                data: data,
+                contentType: 'application/json',
+                success: function (result) {
+                    console.log(self);
+                }
+            }).fail(
+                function (xhr, textStatus, err) {
+                    alert(err);
+                    window.location.href = '/Artist';
+                });
+        };
+
         appViewModel.prototype.RemoveArtist = function (data) {
+            var self = this;
             $.ajax({
                 type: 'GET',
                 url: 'Artist/RemoveArtist/' + data.Id(),
                 success: function (result) {
-                    ko.utils.arrayFirst(self.Artists(), function (item) {
-                        if (item) {
-                            if (item.Id() === data.Id()) {
-                                self.Artists.remove(item);
-                            }
-                        }
-                    });
+                    console.log(self.Artists);
+                    self.Artists.remove(data);
                 }
             }).fail(
                 function (xhr, textStatus, err) {

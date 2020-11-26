@@ -34,7 +34,7 @@ namespace ArtShop.Data
             return artist;
         }
 
-        public void UpdateById(Artist artist)
+        public Artist UpdateById(Artist artist)
         {
             const string SQL_STATEMENT =
                 "UPDATE dbo.Artist " +
@@ -60,6 +60,8 @@ namespace ArtShop.Data
 
                 db.ExecuteNonQuery(cmd);
             }
+
+            return artist;
         }
 
 

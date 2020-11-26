@@ -9,6 +9,12 @@ namespace ArtShop.UI.Process
 {
     public class ArtistProcess : ProcessComponent
     {
+        public Artist ListarUno(int Id)
+        {
+            var response = HttpGet<Artist>("api/Artist/Buscar", new Dictionary<string, object> { { "Id", Id } } , MediaType.Json) ;
+            return response;
+        }
+
         public List<Artist> ListarTodos()
         {
             var response = HttpGet<List<Artist>>("api/Artist/Listar", new Dictionary<string, object>(), MediaType.Json);
@@ -24,6 +30,12 @@ namespace ArtShop.UI.Process
         public void EliminarAtista(int id)
         {
             HttpDelete<Artist>("api/Artist/Eliminar?id=" + id, MediaType.Json);
+        }
+
+        public Artist EditarAtista(Artist artist)
+        {
+            var response = HttpPut<Artist>("api/Artist/Editar", artist, MediaType.Json);
+            return response;
         }
     }
 }
