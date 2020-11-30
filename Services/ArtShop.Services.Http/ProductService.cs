@@ -55,5 +55,26 @@ namespace ArtShop.Services.Http
                 throw new HttpResponseException(httpError);
             }
         }
+
+        [HttpDelete]
+        [Route("Eliminar")]
+        public void Remove(int id)
+        {
+            try
+            {
+                var bc = new ProductComponent();
+                bc.Remove(id);
+            }
+            catch (Exception ex)
+            {
+                var httpError = new HttpResponseMessage()
+                {
+                    StatusCode = (HttpStatusCode)422,
+                    ReasonPhrase = ex.Message
+                };
+
+                throw new HttpResponseException(httpError);
+            }
+        }
     }
 }

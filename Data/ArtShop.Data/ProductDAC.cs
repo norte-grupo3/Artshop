@@ -37,7 +37,7 @@ namespace ArtShop.Data
         {
             const string SQL_STATEMENT =
                 "SELECT Product.Id,Title, Product.Description, Image, Price,ArtistId ,FirstName,LastName " +
-                "FROM dbo.Product,dbo.Artist where Product.ArtistId=Artist.Id";
+                "FROM dbo.Product,dbo.Artist where Product.ArtistId=Artist.Id Order By Product.Id asc";
 
             List<Product> result = new List<Product>();
 

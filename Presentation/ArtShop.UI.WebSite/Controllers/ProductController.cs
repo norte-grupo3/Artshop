@@ -41,5 +41,11 @@ namespace ArtShop.UI.WebSite.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public void RemoveProduct(int id)
+        {
+            var ap = new ProductProcess();
+            ap.EliminarProducto(id);
+        }
+
     }
 }

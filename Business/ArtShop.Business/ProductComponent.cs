@@ -26,5 +26,11 @@ namespace ArtShop.Business
             result = productDAC.Select();
             return result;
         }
+
+        public void Remove(int id)
+        {
+            var productDAC = new ProductDAC();
+            productDAC.DeleteById(id);
+        }
     }
 }
