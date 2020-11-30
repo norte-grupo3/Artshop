@@ -1,88 +1,58 @@
 ﻿
 @{
-    ViewBag.Title = "Galería de Pinturas";
+    ViewBag.Title = "Gestión de Pinturas";
 }
 
-<!-- Main Content -->
-<div id="content">
-    <div class="container-fluid">
-        <!-- Content Row -->
-        <div class="row">
-            <div class="col-lg-6 mb-4">
 
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 1</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
+<h2>Pinturas</h2>
 
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra2.png" alt="">
-                        </div>
-                        <p>Precio: $80.000</p>
-                        <p>Artista: Artista Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                    </div>
-                </div>
+<table class="table table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Imagen</th>
+        <th>Precio</th>
+        <th>Artista</th>
+        <th>Acciones</th>
 
-                <!-- Approach -->
+    </tr>
+    <tbody data-bind="foreach: Products">
+        <tr>
+            <td data-bind="text: Id"></td>
+            <td data-bind="text: Title"></td>
+            <td data-bind="text: Description"></td>
+            <td data-bind="text: Image"></td>
+            <td data-bind="text: Price"></td>
+            <td data-bind="text: Artist"></td>
+            <td>Editar Eliminar</td>
+        </tr>
+    </tbody>
+</table>
 
-
-            </div>
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 2</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra1.png" alt="">
-                        </div>
-                        <p>Precio: $50.000</p>
-                        <p>Artista: Artista Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 3</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra3.png" alt="">
-                        </div>
-                        <p>Precio: $40.000</p>
-                        <p>Artista: Artista Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 4</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra4.png" alt="">
-                        </div>
-                        <p>Precio: $50.000</p>
-                        <p>Artista: Artista Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div>
+    @Html.ActionLink("Nueva Pintura", "Create")
 </div>
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var AppViewModel = function () {
+            var self = this;
+            self.Products = ko.mapping.fromJS([]);
+
+            $.getJSON("/Product/GetProducts",
+                function (data) {
+                    ko.mapping.fromJS(data, {}, self.Products);
+                });
+        }
+
+        var viewModel = new AppViewModel();
+        ko.applyBindings(viewModel);
+
+    </script>
+
+}

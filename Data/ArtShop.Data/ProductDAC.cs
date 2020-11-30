@@ -36,8 +36,8 @@ namespace ArtShop.Data
         public List<Product> Select()
         {
             const string SQL_STATEMENT =
-                "SELECT [Id],[Title], [Description], [Image], [Price],[ArtistId] " +
-                "FROM dbo.Product ";
+                "SELECT Product.Id,Title, Product.Description, Image, Price,ArtistId ,FirstName,LastName " +
+                "FROM dbo.Product,dbo.Artist where Product.ArtistId=Artist.Id";
 
             List<Product> result = new List<Product>();
 
@@ -67,9 +67,24 @@ namespace ArtShop.Data
             product.Description = GetDataValue<string>(dr, "Description");
             product.Image = GetDataValue<string>(dr, "Image");
             product.Price = GetDataValue<double>(dr, "Price");
-
+            product.Artist.Id= GetDataValue<int>(dr, "ArtistId");
+            product.Artist.FirstName = GetDataValue<string>(dr, "FirstName");
+            product.Artist.LastName = GetDataValue<string>(dr, "LastName");
 
             return product;
+        }
+
+        public void DeleteById(int id)
+        {
+            const string SQL_STATEMENT = "DELETE dbo.Product " +
+                                         "WHERE [Id]=@Id ";
+
+            var db = DatabaseFactory.CreateDatabase(CONNECTION_NAME);
+            using (DbCommand cmd = db.GetSqlStringCommand(SQL_STATEMENT))
+            {
+                db.AddInParameter(cmd, "@Id", DbType.Int32, id);
+                db.ExecuteNonQuery(cmd);
+            }
         }
     }
 }

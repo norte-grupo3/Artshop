@@ -23,7 +23,10 @@ namespace ArtShop.Entities.Model
             this.CartItem = new HashSet<CartItem>();
             this.OrderDetail = new HashSet<OrderDetail>();
             this.Rating = new HashSet<Rating>();
+            
         }
+
+
         [DataMember]
         public string Title { get; set; }
         [DataMember]
@@ -35,11 +38,12 @@ namespace ArtShop.Entities.Model
         public int QuantitySold { get; set; }
         public double AvgStars { get; set; }
         [DataMember]
-        public virtual Artist Artist { get; set; }
+        public  Artist Artist = new Artist();
         public virtual ICollection<CartItem> CartItem { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
         public virtual ICollection<Rating> Rating { get; set; }
-
+        public void SetArtistId(int _id) { Artist.Id = _id; }
+        public int art { get; set; }
 
     }
 }

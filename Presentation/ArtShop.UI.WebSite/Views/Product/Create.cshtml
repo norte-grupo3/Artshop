@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Nueva Pintura";
+}
+
+<h2>Nueva Pintura</h2>
+
+<table class="table table-hover">
+    <tr>
+        <td>Título    </td>
+        <td><input data-bind="textInput: Title" />
+        <td />
+    </tr>
+    <tr>
+        <td>Descripción    </td>
+        <td><input data-bind="textInput: Description" />
+        <td />
+    </tr>
+    <tr>
+        <td>Imagen     </td>
+        <td><input data-bind="textInput: Image" />
+        <td />
+    </tr>
+    <tr>
+        <td>Precio      </td>
+        <td><input data-bind="textInput: Price" />
+        <td />
+    </tr>
+    <tr>
+        <td>Artista     </td>
+        <td>
+            <select data-bind="
+                    options: Artists,
+                    optionsText:'FirstName',
+                    optionsValue: 'Id',
+                    value:art ">
+            </select>
+           
+        </td>  
+</tr>
+
+</table>
+
+<input type="button" value="Agregar" data-bind="click: AddProduct" class="btn btn-primary" />
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+
+
+    <script>
+        var appViewModel = function () {
+            var self = this;
+
+            self.Title = ko.observable('');
+            self.Description = ko.observable('');
+            self.Image = ko.observable('');
+            self.Price = ko.observable('');
+            self.art= ko.observable('');
+
+            self.Artists = ko.observableArray([]);
+
+
+            self.AddProduct = function () {
+
+                
+                $.ajax({
+                    url: '@Url.Action("AddProduct", "Product")',
+                    type: 'post',
+                    data: ko.mapping.toJSON(this),
+                    contentType: 'application/json',
+                    success: function (result) {
+      
+                        window.location = "/Product";
+                    }
+                }).fail(
+                    function (xhr, textStatus, err) {
+                        alert(err);
+                    });
+            };
+
+            function Artista(data) {
+                this.Id = ko.observable(data.Id);
+                this.FirstName = ko.observable(data.FirstName);
+                this.LastName = ko.observable(data.LastName);
+            }
+
+            $.getJSON("/Artist/GetArtists",
+                function (data) {
+
+                    var Artistas = ko.utils.arrayMap(data, function (item) {
+                        return new Artista(item);
+                    });
+                    self.Artists(Artistas);
+                });
+
+        }
+       
+
+        var viewModel = new appViewModel();
+        ko.applyBindings(viewModel);
+
+
+    </script>
+}
+
