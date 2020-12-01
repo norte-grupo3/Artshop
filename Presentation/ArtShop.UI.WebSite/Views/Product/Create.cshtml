@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <td>Imagen     </td>
-        <td><input data-bind="textInput: Image" />
+        <td><input type="file" data-bind="textInput: Image" />
         <td />
     </tr>
     <tr>
@@ -35,9 +35,9 @@
                     optionsValue: 'Id',
                     value:art ">
             </select>
-           
-        </td>  
-</tr>
+
+        </td>
+    </tr>
 
 </table>
 
@@ -70,14 +70,14 @@
 
             self.AddProduct = function () {
 
-                
+
                 $.ajax({
                     url: '@Url.Action("AddProduct", "Product")',
                     type: 'post',
                     data: ko.mapping.toJSON(this),
                     contentType: 'application/json',
                     success: function (result) {
-      
+
                         window.location = "/Product";
                     }
                 }).fail(
@@ -102,11 +102,14 @@
                 });
 
         }
-       
+
+
 
         var viewModel = new appViewModel();
         ko.applyBindings(viewModel);
 
+
+ 
 
     </script>
 }

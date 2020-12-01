@@ -32,5 +32,22 @@ namespace ArtShop.Business
             var productDAC = new ProductDAC();
             productDAC.DeleteById(id);
         }
+
+        public Product Find(int id)
+        {
+            Product result = default(Product);
+            var productDAC = new ProductDAC();
+            result = productDAC.SelectById(id);
+            return result;
+        }
+
+        public Product Edit(Product product)
+        {
+            Product result = default(Product);
+            var productDAC = new ProductDAC();
+            result = productDAC.UpdateById(product);
+            return result;
+        }
+
     }
 }

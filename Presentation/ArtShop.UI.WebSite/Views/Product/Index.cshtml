@@ -28,7 +28,9 @@
             <td data-bind="text: Price"></td>
             <td data-bind="text: Artist.FirstName() + ' ' + Artist.LastName()"></td>
             <td>
-                @*<input data-bind="" type="button" value="Editar" class="btn btn-primary" />*@
+                <a data-bind="attr: { 'href': '@Url.Action("Edit", "Product")/' + Id() }" class="btn btn-primary">
+                    Editar
+                </a>
                 <input data-bind="click: $parent.RemoveProduct" type="button" value="Eliminar" class="btn btn-primary" />
 
             </td>

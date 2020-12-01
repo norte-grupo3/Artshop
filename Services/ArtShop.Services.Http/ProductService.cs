@@ -76,5 +76,48 @@ namespace ArtShop.Services.Http
                 throw new HttpResponseException(httpError);
             }
         }
+
+        [HttpPut]
+        [Route("Editar")]
+        public Product Edit(Product product)
+        {
+            try
+            {
+                var bc = new ProductComponent();
+                return bc.Edit(product);
+            }
+            catch (Exception ex)
+            {
+                // Repack to Http error.
+                var httpError = new HttpResponseMessage()
+                {
+                    StatusCode = (HttpStatusCode)422,
+                    ReasonPhrase = ex.Message
+                };
+
+                throw new HttpResponseException(httpError);
+            }
+        }
+
+        [HttpGet]
+        [Route("Buscar")]
+        public Product Find(int id)
+        {
+            try
+            {
+                var bc = new ProductComponent();
+                return bc.Find(id);
+            }
+            catch (Exception ex)
+            {
+                var httpError = new HttpResponseMessage()
+                {
+                    StatusCode = (HttpStatusCode)422,
+                    ReasonPhrase = ex.Message
+                };
+
+                throw new HttpResponseException(httpError);
+            }
+        }
     }
 }

@@ -26,5 +26,17 @@ namespace ArtShop.UI.Process
         {
             HttpDelete<Product>("api/Product/Eliminar?id=" + id, MediaType.Json);
         }
+
+        public Product EditarProduct(Product product)
+        {
+            var response = HttpPut<Product>("api/Product/Editar", product, MediaType.Json);
+            return response;
+        }
+
+        public Product ListarUno(int Id)
+        {
+            var response = HttpGet<Product>("api/Product/Buscar", new Dictionary<string, object> { { "Id", Id } }, MediaType.Json);
+            return response;
+        }
     }
 }
