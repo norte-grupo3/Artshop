@@ -31,6 +31,22 @@ namespace ArtShop.UI.WebSite.Controllers
         {
             return View();
         }
+
+        public JsonResult GetProduct(int Id)
+        {
+            var ap = new ProductProcess();
+            var prod = ap.ListarUno(Id);
+            prod.art=prod.Artist.Id;
+            return Json(prod, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult EditProduct (Product product)
+        {
+            product.SetArtistId(product.art);
+            var ap = new ProductProcess();
+            var list = ap.EditarProduct(product);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetProducts()
         {
             var ap = new ProductProcess();

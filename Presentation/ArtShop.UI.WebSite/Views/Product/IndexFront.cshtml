@@ -8,39 +8,37 @@
     <div class="container-fluid">
         <!-- Content Row -->
         <div class="row">
-            <div class="col-lg-6 mb-4">
+            @*<div class="col-lg-6 mb-4" data-bind="foreach: Products" >
 
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 1</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra2.png" alt="">
-                        </div>
-                        <p>Precio: $80.000</p>
-                        <p>Artista: Artista Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                    </div>
+             Illustrations
+            <div class="card shadow mb-4" >
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Pintura 1</h6>
                 </div>
+                <div class="card-body">
+                    <div class="text-center">
 
-                <!-- Approach -->
-
-
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/product/Obra2.png" alt="">
+                    </div>
+                    <p>Precio: $80.000</p>
+                    <p>Artista: Artista Prueba</p>
+                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
+                </div>
             </div>
-            <div class="col-lg-6 mb-4">
 
-                <!-- Illustrations -->
+        </div>*@
+
+            <div class="col-lg-6 mb-4" data-bind="foreach: Products">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Pintura 2</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" data-bind="text: Title" />
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Obra1.png" alt="">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/product/Obra1.png" alt="">
                         </div>
+                        <p data-bind="text: Description"/>
+
                         <p>Precio: $50.000</p>
                         <p>Artista: Artista Prueba</p>
                         <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
@@ -48,9 +46,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 mb-4">
+            @*<div class="col-lg-6 mb-4">
 
-                <!-- Illustrations -->
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Pintura 3</h6>
@@ -68,7 +66,7 @@
 
             <div class="col-lg-6 mb-4">
 
-                <!-- Illustrations -->
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Pintura 4</h6>
@@ -82,7 +80,37 @@
                         <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var AppViewModel = function () {
+            var self = this;
+
+
+            self.Products = ko.mapping.fromJS([]);
+
+
+            $.getJSON("/Product/GetProducts",
+                function (data) {
+                    ko.mapping.fromJS(data, {}, self.Products);
+                });
+
+        };
+
+
+        var viewModel = new AppViewModel();
+        ko.applyBindings(viewModel);
+
+
+    </script>
+
+}
