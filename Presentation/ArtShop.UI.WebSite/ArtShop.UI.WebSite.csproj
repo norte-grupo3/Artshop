@@ -190,10 +190,16 @@
     <Content Include="Content\img\Artista3.png" />
     <Content Include="Content\img\Artista4.png" />
     <Content Include="Content\img\logo.jpg" />
+    <Content Include="Content\img\product\guernica-pablo-picasso.png" />
+    <Content Include="Content\img\product\los-tres-musicos-picasso.png" />
+    <Content Include="Content\img\product\mujer-ante-el-espejo.png" />
+    <Content Include="Content\img\product\noche-estrellada-van-gogh.png" />
     <Content Include="Content\img\product\Obra1.png" />
     <Content Include="Content\img\product\Obra2.png" />
     <Content Include="Content\img\product\Obra3.png" />
     <Content Include="Content\img\product\Obra4.png" />
+    <Content Include="Content\img\product\Retrato-de-Gertrude.png" />
+    <Content Include="Content\img\product\weeping-woman.png" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
