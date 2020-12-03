@@ -189,10 +189,11 @@
     <Content Include="Content\img\Artista2.png" />
     <Content Include="Content\img\Artista3.png" />
     <Content Include="Content\img\Artista4.png" />
-    <Content Include="Content\img\Obra1.png" />
-    <Content Include="Content\img\Obra2.png" />
-    <Content Include="Content\img\Obra3.png" />
-    <Content Include="Content\img\Obra4.png" />
+    <Content Include="Content\img\logo.jpg" />
+    <Content Include="Content\img\product\Obra1.png" />
+    <Content Include="Content\img\product\Obra2.png" />
+    <Content Include="Content\img\product\Obra3.png" />
+    <Content Include="Content\img\product\Obra4.png" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
@@ -2090,6 +2091,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Ver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

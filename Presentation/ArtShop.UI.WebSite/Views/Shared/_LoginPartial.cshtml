@@ -5,19 +5,19 @@
         {
             @Html.AntiForgeryToken()
 
-            
-                
-                    @Html.ActionLink( User.Identity.GetUserName() + " ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-               <br>
-              <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a>
+
+
+                    @Html.ActionLink(User.Identity.GetUserName() + " ", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+               
+               <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Cerrar sesión</a>
            
         }
     }
     else
     {
         
-            @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br>
-           @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })
+           @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "dropdown-item" })
        
     }
 

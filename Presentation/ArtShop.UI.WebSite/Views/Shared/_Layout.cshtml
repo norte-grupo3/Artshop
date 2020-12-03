@@ -26,11 +26,61 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-        {
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Home")">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    @*<i class="fas fa-laugh-wink"></i>*@
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ArtShop</div>
+            </a>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("IndexFront", "Product")" aria-expanded="true" aria-controls="collapseTwo">
+
+                    <i class="fas fa-image"></i>
+                    <span>PINTURAS</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("IndexFront", "Artist")" aria-expanded="true" aria-controls="collapseTwo">
+
+                    <i class="fas fa-users"></i>
+                    <span>ARTISTAS</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("About", "Home")" aria-expanded="true" aria-controls="collapseTwo">
+
+                    <i class="fas fa-question"></i>
+                    <span>ACERCA DE</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+           
+            <!-- Inicio de Opciones de Administrador-->
+
+            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            {
+
+
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Home")">
                     <div class="sidebar-brand-icon rotate-n-15">
                         @*<i class="fas fa-laugh-wink"></i>*@
@@ -41,7 +91,6 @@
 
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-
 
 
                 <!-- Divider -->
@@ -137,10 +186,10 @@
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
+            }
+        </ul>
 
-            </ul>
-
-        }
+       
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -157,27 +206,16 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    @*<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
                             </div>
-                        </form>*@
-
-                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-
-                        <img src="~/Content/img/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-                        ArtShop
-                    </a>
-
-
-                    <a class="nav-item nav-link" href="@Url.Action("IndexFront", "Product")">Pinturas</a>
-                    <a class="nav-item nav-link" href="@Url.Action("IndexFront", "Artist")">Artistas</a>
-                    <a class="nav-item nav-link" href="@Url.Action("About", "Home")">Acerca de ArtShop</a>
+                        </div>
+                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -191,7 +229,7 @@
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -202,60 +240,71 @@
                             </div>
                         </li>
 
-
-
-                        <!-- Carrito -->
+                        <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-shopping-cart"></i>
-                                <!-- Contador de Producto -->
-                                <span class="badge badge-danger badge-counter">3</span>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - Carrito -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Total Carrito $ 240.000
+                                    carrito
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
                                     </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Pintura 1</div>
-                                        <div class="small text-gray-500">$ 25.00</div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">Pintura 1</span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate">Pintura 2</div>
-                                        <div class="small text-gray-500">$ 145.000</div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        Pintura 2
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate">Pintura 3</div>
-                                        <div class="small text-gray-500">$ 70.000</div>
+                                        <div class="small text-gray-500">December 2, 2019</div>
+                                        Pintura 3
                                     </div>
                                 </a>
-
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Checkout</a>
                             </div>
                         </li>
 
+
+
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        @Html.Partial("_LoginPartial")
-
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
+                                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                       
+                                @Html.Partial("_LoginPartial")
+                            </div>
+                        </li>
 
                     </ul>
 
