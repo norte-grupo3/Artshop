@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Carrito</h2>
+
+
+<table class="table table-hover">
+    <tr>
+        <th>Pintura</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+
+
+    </tr>
+    <tbody data-bind="foreach: Items">
+        <tr>
+            <td data-bind="text: _Product.Title"></td>
+            <td data-bind="text: Price"></td>
+            <td data-bind="text: Quantity"></td>
+
+            <td>
+                Quitar
+               @* <input data-bind="click: $parent.RemoveProduct" type="button" value="Eliminar" class="btn btn-primary" />*@
+
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var AppViewModel = function () {
+            var self = this;
+
+
+            self.Items = ko.mapping.fromJS([]);
+
+
+            $.getJSON("/Cart/Items",
+                function (data) {
+                    ko.mapping.fromJS(data, {}, self.Items);
+                });
+
+        };
+
+
+
+
+
+
+        var viewModel = new AppViewModel();
+        ko.applyBindings(viewModel);
+
+
+
+    </script>
+
+}

@@ -8,29 +8,31 @@
     <div class="container-fluid">
 
         <div class="row" data-bind="foreach: Products">
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary" data-bind="text: Title" />
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" data-bind="attr:{src: '../Content/img/product/'+Image()}" alt="">
+
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary" data-bind="text: Title" />
                         </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" data-bind="attr:{src: '/Content/img/product/'+Image()}" alt="">
+                            </div>
 
 
-                        <p data-bind="text: 'Precio: $'+Price()" />
-                        <p data-bind="text: 'Artista: '+ Artist.FirstName() + ' '+ Artist.LastName()" />
-                        <p><a data-bind="attr: { href: 'Ver/'+Id(), title: Title }">Detalles</a></p>
-                        <p><a href="#">Agregar al carrito &rarr;</a><i class="fas fa-shopping-cart"></i></p>
+                            <p data-bind="text: 'Precio: $'+Price()" />
+                            <p data-bind="text: 'Artista: '+ Artist.FirstName() + ' '+ Artist.LastName()" />
+                            <p><a data-bind="attr: { href: 'Ver/'+Id(), title: Title }">Detalles</a></p>
+                            <form data-bind="attr:{action: '/Cart/AddToCart/'+Id()}"  method="post" >
+                                <p><input value="Agregar al carrito" type="submit">&rarr;<i class="fas fa-shopping-cart"></i></p>
 
+                            </form>
 
-
+                        </div>
                     </div>
                 </div>
-            </div>
-
-
+            
+           
         </div>
 
 

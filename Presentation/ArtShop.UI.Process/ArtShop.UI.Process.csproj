@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtistProcess.cs" />
+    <Compile Include="CartItemProcess.cs" />
+    <Compile Include="CartProcess.cs" />
     <Compile Include="MediaType.cs" />
     <Compile Include="ProcessComponent.cs" />
     <Compile Include="ProductProcess.cs" />

@@ -74,7 +74,7 @@
                 </div>
             </li>
             <hr class="sidebar-divider my-0">
-           
+
             <!-- Inicio de Opciones de Administrador-->
 
             @if (ViewContext.HttpContext.User.IsInRole("Admin"))
@@ -189,7 +189,7 @@
             }
         </ul>
 
-       
+
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -245,7 +245,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-shopping-cart"></i>
                                 <!-- CONTADOR -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span id="Cantidad" class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - CARRITO -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -259,13 +259,13 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">Pinturas:  </div>
-                                        <span class="font-weight-bold">Total $ </span>
+                                        <div class="small text-gray-500">Total Carrito:  </div>
+                                        <span id="Total" class="font-weight-bold">Total $ </span>
                                     </div>
                                 </a>
 
 
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Checkout</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="/Cart/Index">Checkout</a>
                             </div>
                         </li>
 
@@ -281,7 +281,7 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                       
+
                                 @Html.Partial("_LoginPartial")
                             </div>
                         </li>
@@ -351,6 +351,45 @@
     <!-- Page level custom scripts -->
     <script src="/Content/js/demo/chart-area-demo.js"></script>
     <script src="/Content/js/demo/chart-pie-demo.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.ajax({
+            type: "GET",
+            url: '@Url.Action("getPrice", "Cart")',
+
+            dataType: 'json',
+                success: function (result) {
+                    $("#Total").text("$" + result.response);
+
+            }
+        });
+
+        });
+
+
+        $(document).ready(function () {
+
+            $.ajax({
+            type: "GET",
+            url: '@Url.Action("getCantidad", "Cart")',
+
+            dataType: 'json',
+                success: function (result) {
+                    $("#Cantidad").text(result.response);
+
+            }
+        });
+
+        });
+
+
+
+
+    </script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
