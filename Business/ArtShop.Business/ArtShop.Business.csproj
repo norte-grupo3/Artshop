@@ -42,6 +42,8 @@
     <Compile Include="ArtistComponent.cs" />
     <Compile Include="CartComponent.cs" />
     <Compile Include="CartItemComponent.cs" />
+    <Compile Include="OrderComponent.cs" />
+    <Compile Include="OrderDetailComponent.cs" />
     <Compile Include="ProductComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

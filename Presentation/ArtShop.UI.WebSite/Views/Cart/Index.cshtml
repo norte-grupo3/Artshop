@@ -22,14 +22,19 @@
             <td data-bind="text: Quantity"></td>
 
             <td>
-                Quitar
-               @* <input data-bind="click: $parent.RemoveProduct" type="button" value="Eliminar" class="btn btn-primary" />*@
+                <input data-bind="click: $parent.RemoveItem.bind($data,Id())" type="button" value="Eliminar" class="btn btn-primary" />
 
             </td>
 
         </tr>
     </tbody>
 </table>
+
+    
+<span>Total Carrito:</span><span id="TotalCarrito"></span>
+<div>
+    <a href="/Product/IndexFront" type="button" class="btn btn-primary">Seguir comprando</a>
+</div>
 
 
 @section scripts
@@ -52,7 +57,27 @@
 
         };
 
+        AppViewModel.prototype.RemoveItem = function (data) {
 
+            if (confirm('Eliminar la Pintura ?')) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cart/DeleteItem/' + data,
+                    success: function (result) {
+                        location.reload();
+                    }
+
+                }).fail(
+                    function (xhr, textStatus, err) {
+                        alert(err);
+                    });
+
+            } else {
+
+            }
+
+
+        };
 
 
 

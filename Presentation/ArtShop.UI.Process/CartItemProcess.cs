@@ -22,5 +22,16 @@ namespace ArtShop.UI.Process
             var response = HttpPost<CartItem>("api/CartItem/Agregar", Item, MediaType.Json);
             return response;
         }
+
+        public CartItem ListarUno(int Id)
+        {
+            var response = HttpGet<CartItem>("api/CartItem/Buscar", new Dictionary<string, object> { { "Id", Id } }, MediaType.Json);
+            return response;
+        }
+
+        public void EliminarItem(int Id)
+        {
+            HttpDelete<CartItem>("api/CartItem/Eliminar?id=" + Id, MediaType.Json);
+        }
     }
 }

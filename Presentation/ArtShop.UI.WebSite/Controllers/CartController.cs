@@ -41,7 +41,7 @@ namespace ArtShop.UI.WebSite.Controllers
 
         }
 
-       // [HttpPost]
+
         public void AddToCart(int Id)
         {
             Product oPaint = pp.ListarUno((Convert.ToInt32(Id)));
@@ -109,6 +109,22 @@ namespace ArtShop.UI.WebSite.Controllers
 
             }
 
+        }
+
+        public void DeleteItem(int id)
+        {
+
+
+            var cartItem = cip.ListarUno(id);
+
+
+                HttpCookie cookie = HttpContext.Request.Cookies.Get("cookieCart");
+                Cart oCart = cp.ListarUno(Convert.ToInt32(cookie.Value));
+                oCart.ItemCount -= 1;
+
+                cip.EliminarItem(cartItem.Id);
+                cp.EditarCarrito(oCart);
+      
         }
 
         public ActionResult getPrice()
