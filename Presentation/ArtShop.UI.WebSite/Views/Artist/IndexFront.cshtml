@@ -7,42 +7,22 @@
 <div id="content">
     <div class="container-fluid">
         <!-- Content Row -->
-        <div class="row">
+        <div class="row" data-bind="foreach: Artists">
             <div class="col-lg-6 mb-4">
 
                 <!-- Illustrations -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Artista 1</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" data-bind="text: LastName() + ', ' + FirstName()"></h6>
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-
                             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Artista1.png" alt="">
                         </div>
-                        <p>Artista de Prueba</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Más info &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Approach -->
-
-
-            </div>
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Artista 2</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Artista2.png" alt="">
-                        </div>
-                        <p>Artista de Prueba2</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Más info &rarr;</a>
+                        <p data-bind="text: 'LifeSpan: ' + LifeSpan()" />
+                        <p data-bind="text: 'Country: '+ Country()" />
+                        <p data-bind="text: 'Description: '+ Description()" />
+                        <p><a data-bind="attr: { href: '../Product/Edit/'+Id() }">Pinturas</a></p>
                     </div>
                 </div>
 
@@ -51,41 +31,34 @@
 
             </div>
 
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Artista 3</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Artista3.png" alt="">
-                        </div>
-                        <p>Artista de Prueba 3</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Más info &rarr;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Artista 4</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="~/Content/img/Artista4.png" alt="">
-                        </div>
-                        <p>Artista de Prueba 4</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Más info &rarr;</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
 
+    <script>
+        var appViewModel = function () {
+            var artist = {
+                Id: ko.observable(),
+                FirstName: ko.observable(),
+                LastName: ko.observable(),
+                LifeSpan: ko.observable(),
+                Country: ko.observable(),
+                Description: ko.observable(),
+                TotalProducts: ko.observable()
+            }
+            var self = this;
+            self.Artists = ko.mapping.fromJS([]);
+            $.getJSON("/Artist/GetArtists", function (data) {
+                ko.mapping.fromJS(data, artist, self.Artists);
+            });
+        };
+
+        // Apply bindings
+        ko.applyBindings(new appViewModel());
+    </script>
+}

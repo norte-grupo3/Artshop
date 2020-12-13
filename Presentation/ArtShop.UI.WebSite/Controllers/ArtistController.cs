@@ -10,7 +10,16 @@ namespace ArtShop.UI.WebSite.Controllers
 {
     public class ArtistController : Controller
     {
-        // GET: Artist
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -19,6 +28,20 @@ namespace ArtShop.UI.WebSite.Controllers
         public ActionResult IndexFront()
         {
             return View();
+        }
+
+        public JsonResult AddArtist(Artist artist)
+        {
+            var ap = new ArtistProcess();
+            var list = ap.AgregarAtista(artist);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditArtist(Artist artist)
+        {
+            var ap = new ArtistProcess();
+            var list = ap.EditarAtista(artist);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetArtist(int Id)
@@ -35,34 +58,10 @@ namespace ArtShop.UI.WebSite.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        public JsonResult AddArtist(Artist artist)
-        {
-            var ap = new ArtistProcess();
-            var list = ap.AgregarAtista(artist);
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
         public void RemoveArtist(int id)
         {
             var ap = new ArtistProcess();
             ap.EliminarAtista(id);
-        }
-
-        public JsonResult EditArtist(Artist artist)
-        {
-            var ap = new ArtistProcess();
-            var list = ap.EditarAtista(artist);
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult ABMView()
-        {
-            return View();
         }
     }
 }

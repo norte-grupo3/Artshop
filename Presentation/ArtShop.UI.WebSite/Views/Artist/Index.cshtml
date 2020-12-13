@@ -3,6 +3,10 @@
     ViewBag.Title = "Gestion de Artistas";
 }
 
+<h2>Pinturas</h2>
+<div>
+    @Html.ActionLink("Nuevo Artista", "Create")
+</div>
 <div id="content">
     <div class="container-fluid">
         <table class="table-responsive">
@@ -20,24 +24,22 @@
             </thead>
             <tbody data-bind="foreach: Artists">
                 <tr>
-                    <td style="display:none;"><input class='required' data-bind='value: Id, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: FirstName, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: LastName, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: LifeSpan, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: Country, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: Description, uniqueName: true' /></td>
-                    <td><input class='required' data-bind='value: TotalProducts, uniqueName: true' /></td>
+                    <td style="display:none;" data-bind='text: Id'></td>
+                    <td data-bind='text: FirstName'></td>
+                    <td data-bind='text: LastName'></td>
+                    <td data-bind='text: LifeSpan'></td>
+                    <td data-bind='text: Country'></td>
+                    <td data-bind='text: Description'></td>
+                    <td data-bind='text: TotalProducts'></td>
                     <td>
-                        <input data-bind="click: $parent.EditArtist" type="button" value="Editar" class="btn btn-primary" />
+                        <a data-bind="attr: { 'href': '@Url.Action("Edit", "Artist")/' + Id() }" class="btn btn-primary">
+                            Editar
+                        </a>
                         <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <div>
-            @Html.ActionLink("Crear artista", "Create")
-        </div>
     </div>
 </div>
 
@@ -54,11 +56,10 @@
                 LastName: ko.observable(),
                 LifeSpan: ko.observable(),
                 Country: ko.observable(),
-                Decription: ko.observable(),
+                Description: ko.observable(),
                 TotalProducts: ko.observable()
             }
             this.RemoveArtist = this.RemoveArtist.bind(this);
-            this.EditArtist = this.EditArtist.bind(this);
             var self = this;
             self.Artists = ko.mapping.fromJS([]);
             $.getJSON("Artist/GetArtists", function (data) {
@@ -66,37 +67,23 @@
             });
         };
 
-        appViewModel.prototype.EditArtist = function (data) {
-            var self = this;
-            console.log(data);
-            $.ajax({
-                type: 'GET',
-                url: 'Artist/EditArtist',
-                data: data,
-                contentType: 'application/json',
-                success: function (result) {
-                    console.log(self);
-                }
-            }).fail(
-                function (xhr, textStatus, err) {
-                    alert(err);
-                    window.location.href = '/Artist';
-                });
-        };
-
         appViewModel.prototype.RemoveArtist = function (data) {
             var self = this;
-            $.ajax({
-                type: 'GET',
-                url: 'Artist/RemoveArtist/' + data.Id(),
-                success: function (result) {
-                    console.log(self.Artists);
-                    self.Artists.remove(data);
-                }
-            }).fail(
-                function (xhr, textStatus, err) {
-                    alert(err);
-                });
+            if (confirm('Desea Eliminar el artista ' + data.FirstName() + ' ' + data.LastName() + '?')) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'Artist/RemoveArtist/' + data.Id(),
+                    success: function (result) {
+                        console.log(self.Artists);
+                        self.Artists.remove(data);
+                    }
+                }).fail(
+                    function (xhr, textStatus, err) {
+                        alert(err);
+                    });
+            } else {
+
+            }
         };
 
         // Apply bindings
