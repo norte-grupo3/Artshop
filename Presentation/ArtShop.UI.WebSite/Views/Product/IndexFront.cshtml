@@ -23,10 +23,11 @@
                             <p data-bind="text: 'Precio: $'+Price()" />
                             <p data-bind="text: 'Artista: '+ Artist.FirstName() + ' '+ Artist.LastName()" />
                             <p><a data-bind="attr: { href: 'Ver/'+Id(), title: Title }">Detalles</a></p>
-                            <form data-bind="attr:{action: '/Cart/AddToCart/'+Id()}"  method="post" >
-                                <p><input value="Agregar al carrito" type="submit">&rarr;<i class="fas fa-shopping-cart"></i></p>
+                            @*<form data-bind="attr:{action: '/Cart/AddToCart/'+Id()}"  method="post" >
+            <p><input value="Agregar al carrito" type="submit">&rarr;<i class="fas fa-shopping-cart"></i></p>
 
-                            </form>
+        </form>*@
+                            <input data-bind="click: $parent.Agregar.bind($data,Id())" type="button" value="Agregar al Carrito" class="btn btn-primary" />
 
                         </div>
                     </div>
@@ -58,6 +59,24 @@
                 function (data) {
                     ko.mapping.fromJS(data, {}, self.Products);
                 });
+
+        };
+
+        AppViewModel.prototype.Agregar = function (data) {       
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cart/AddToCart/'+data,
+                    success: function (result) {
+                        Actualizar();
+                    }
+
+                }).fail(
+                    function (xhr, textStatus, err) {
+                      
+                    });
+
+
+          
 
         };
 

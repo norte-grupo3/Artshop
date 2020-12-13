@@ -355,7 +355,9 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        
+
+        function Actualizar() {
 
             $.ajax({
             type: "GET",
@@ -365,13 +367,10 @@
                 success: function (result) {
                     $("#Total").text("$" + result.response);
 
-            }
-        });
 
-        });
+                  }
+             });
 
-
-        $(document).ready(function () {
 
             $.ajax({
             type: "GET",
@@ -381,12 +380,13 @@
                 success: function (result) {
                     $("#Cantidad").text(result.response);
 
-            }
-        });
 
-        });
+                }
+             });
 
+        };
 
+        $(document).ready(Actualizar);
 
 
     </script>

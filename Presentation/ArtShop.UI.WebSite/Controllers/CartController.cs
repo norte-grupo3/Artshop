@@ -35,22 +35,16 @@ namespace ArtShop.UI.WebSite.Controllers
                 {
                     item._Product = pp.ListarUno(item.ProductId);
                 }
-
-                
+              
             }
             return Json(listaItems, JsonRequestBehavior.AllowGet);
 
         }
 
-        [HttpPost]
-        public ActionResult AddToCart(int? Id)
+       // [HttpPost]
+        public void AddToCart(int Id)
         {
             Product oPaint = pp.ListarUno((Convert.ToInt32(Id)));
-            if (Id == null)
-            {
-               // Logger.Instance.LogException(new Exception("Id Cart null "), User.Identity.GetUserId());
-               // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             if (Request.Cookies.Get("cookieCart") == null)
             {
@@ -73,15 +67,6 @@ namespace ArtShop.UI.WebSite.Controllers
                 oCart.CartDate = dateTime;
                 oCart.Cookie = "";
 
-
-
-               // this.CheckAuditPattern(oCart, true);
-               // var list = db.ValidateModel(oCart);
-
-              //  if (ModelIsValid(list))
-                //    return RedirectToAction("itemProduct", "Product", new { Id });
-                try
-                {
                     //Obtengo el id del carritoCreado
                     Cart oCartSave = cp.AgregarCarrito(oCart);
 
@@ -96,34 +81,9 @@ namespace ArtShop.UI.WebSite.Controllers
 
                     //Guardo el id del carrito en el item
                     oCartItem.CartId = oCartSave.Id;
-                }
-                catch (Exception ex)
-                {
-                    //Logger.Instance.LogException(ex, User.Identity.GetUserId());
 
-                }
-
-               // this.CheckAuditPattern(oCartItem, true);
-             //   var list2 = dbItem.ValidateModel(oCartItem);
-
-
-
-              //  if (ModelIsValid(list2))
-              //      return RedirectToAction("itemProduct", "Product", new { Id });
-                try
-                {
                     //Guardo el item
                     cip.Agregar(oCartItem);
-
-
-                }
-                catch (Exception ex)
-                {
-                  //  Logger.Instance.LogException(ex, User.Identity.GetUserId());
-                }
-
-
-
 
             }
             else
@@ -140,33 +100,15 @@ namespace ArtShop.UI.WebSite.Controllers
                     _Product = oPaint
                 };
 
-               // this.CheckAuditPattern(oCartItem, true);
-               // var list2 = dbItem.ValidateModel(oCartItem);
-
-
                 //Actualizo cantidad de items del carrito 
                 Cart oCart = cp.ListarUno(Convert.ToInt32(cookie.Value));
                 oCart.ItemCount += 1;
 
-               // this.CheckAuditPattern(oCart, true);
-                //var list3 = db.ValidateModel(oCart);
-
-              //  if (ModelIsValid(list2))
-               //     return RedirectToAction("itemProduct", "Product", new { Id });
-                try
-                {
-                    //Guardo el item
                     cip.Agregar(oCartItem);
                     cp.EditarCarrito(oCart);
-                }
-                catch (Exception ex)
-                {
-                  //  Logger.Instance.LogException(ex, User.Identity.GetUserId());
-                }
 
             }
 
-            return RedirectToAction("IndexFront", "Product", new { Id });
         }
 
         public ActionResult getPrice()
