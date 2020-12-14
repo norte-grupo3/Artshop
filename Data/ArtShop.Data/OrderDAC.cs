@@ -35,7 +35,7 @@ namespace ArtShop.Data
 
         public List<Order> Select()
         {
-            const string SQL_STATEMENT ="SELECT [Id],[UserId],[OrderDate],[TotalPrice],[ItemCount]  FROM [dbo].[Order] ";
+            const string SQL_STATEMENT = "SELECT [Id],[UserId],[OrderDate],[TotalPrice],[ItemCount],[OrderNumber]  FROM [dbo].[Order] ";
 
             List<Order> result = new List<Order>();
 
@@ -118,7 +118,7 @@ namespace ArtShop.Data
             order.OrderDate = GetDataValue<DateTime>(dr, "OrderDate");
             order.TotalPrice = GetDataValue<double>(dr, "TotalPrice");
             order.ItemCount = GetDataValue<int>(dr, "ItemCount");
- 
+            order.OrderNumber = GetDataValue<int>(dr, "OrderNumber");
 
             return order;
         }

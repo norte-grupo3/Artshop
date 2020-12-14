@@ -15,13 +15,13 @@ namespace ArtShop.Data
         public OrderDetail Create(OrderDetail item)
 
         {
-            const string SQL_STATEMENT = "insert into [dbo].[OrderDetailDetail] (OrderId,ProductId,Price,Quantity) values (@OrderId,@ProductId,@Price,@Quiantity)";
+            const string SQL_STATEMENT = "insert into [dbo].[OrderDetail] (OrderId,ProductId,Price,Quantity) values (@OrderId,@ProductId,@Price,@Quantity)";
 
             var db = DatabaseFactory.CreateDatabase(CONNECTION_NAME);
             using (DbCommand cmd = db.GetSqlStringCommand(SQL_STATEMENT))
             {
                 db.AddInParameter(cmd, "@OrderId", DbType.String, item.OrderId);
-                db.AddInParameter(cmd, "@ProductId", DbType.DateTime, item.ProductId);
+                db.AddInParameter(cmd, "@ProductId", DbType.Int32, item.ProductId);
                 db.AddInParameter(cmd, "@Price", DbType.Double, item.Price);
                 db.AddInParameter(cmd, "@Quantity", DbType.Int32, item.Quantity);
 
@@ -98,7 +98,7 @@ namespace ArtShop.Data
             using (DbCommand cmd = db.GetSqlStringCommand(SQL_STATEMENT))
             {
                 db.AddInParameter(cmd, "@OrderId", DbType.String, item.OrderId);
-                db.AddInParameter(cmd, "@ProductId", DbType.DateTime, item.ProductId);
+                db.AddInParameter(cmd, "@ProductId", DbType.Int32, item.ProductId);
                 db.AddInParameter(cmd, "@Price", DbType.Double, item.Price);
                 db.AddInParameter(cmd, "@Quantity", DbType.Int32, item.Quantity);
                 db.AddInParameter(cmd, "@Id", DbType.Int32, item.Id);

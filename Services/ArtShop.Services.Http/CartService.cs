@@ -13,28 +13,7 @@ namespace ArtShop.Services.Http
     [RoutePrefix("api/Cart")]
     public class CartService : ApiController
     {
-        public List<Cart> SelectAll()
-        {
-            List<Cart> list = null;
-            try
-            {
-                var bc = new CartComponent();
-                list = bc.List();
-            }
-            catch (Exception ex)
-            {
-                var httpError = new HttpResponseMessage()
-                {
-                    StatusCode = (HttpStatusCode)422,
-                    ReasonPhrase = ex.Message
-                };
-
-                throw new HttpResponseException(httpError);
-            }
-
-            return list;
-        }
-
+   
         [HttpPost]
         [Route("Agregar")]
         public Cart Add(Cart cart)

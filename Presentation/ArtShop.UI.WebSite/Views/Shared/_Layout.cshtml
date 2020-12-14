@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/Content/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="~/Content/css/pago.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -245,7 +245,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-shopping-cart"></i>
                                 <!-- CONTADOR -->
-                                <span id="Cantidad" class="badge badge-danger badge-counter"></span>
+                                <span class="badge badge-danger badge-counter Cantidad"></span>
                             </a>
                             <!-- Dropdown - CARRITO -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -260,7 +260,7 @@
                                     </div>
                                     <div>
                                         <div class="small text-gray-500">Total Carrito:  </div>
-                                        <span id="Total" class="font-weight-bold">Total $ </span>
+                                        <span class="font-weight-bold TotalCarrito">Total $ </span>
                                     </div>
                                 </a>
 
@@ -365,8 +365,7 @@
 
             dataType: 'json',
                 success: function (result) {
-                    $("#Total").text("$" + result.response);
-                    $("#TotalCarrito").text(" $" + result.response);
+                    $(".TotalCarrito").text(" $" + result.response);
 
                   }
              });
@@ -378,7 +377,7 @@
 
             dataType: 'json',
                 success: function (result) {
-                    $("#Cantidad").text(result.response);
+                    $(".Cantidad").text(result.response);
 
 
                 }

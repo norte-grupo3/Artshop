@@ -185,6 +185,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\pago.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\sb-admin-2.min.css" />
     <Content Include="Content\img\Artista1.png" />
@@ -2102,11 +2103,11 @@
     <Content Include="Views\Product\Ver.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Artist\Edit.cshtml" />
+    <Content Include="Views\Order\Pago.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

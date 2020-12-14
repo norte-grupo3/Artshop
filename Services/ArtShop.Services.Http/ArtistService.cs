@@ -13,28 +13,7 @@ namespace ArtShop.Services.Http
     [RoutePrefix("api/Artist")]
     public class ArtistService : ApiController
     {
-        public List<Artist> SelectAll()
-        {
-            List<Artist> list = null;
-            try
-            {
-                var bc = new ArtistComponent();
-                list = bc.List();
-            }
-            catch (Exception ex)
-            {
-                var httpError = new HttpResponseMessage()
-                {
-                    StatusCode = (HttpStatusCode)422,
-                    ReasonPhrase = ex.Message
-                };
-
-                throw new HttpResponseException(httpError);
-            }
-
-            return list;
-        }
-
+    
         [HttpPost]
         [Route("Agregar")]
         public Artist Add(Artist artist)
