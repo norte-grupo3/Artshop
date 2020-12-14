@@ -20,5 +20,10 @@ namespace ArtShop.Entities.Model
         public int OrderNumber { get; set; }
         [DataMember]
         public int ItemCount { get; set; }
+
+        public string Fecha { get; set; }
+
+        [DataMember]
+        public string Usuario { get; set; }
     }
 }

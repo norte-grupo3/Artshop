@@ -36,7 +36,7 @@ namespace ArtShop.Data
         public List<Product> Select()
         {
             const string SQL_STATEMENT =
-                "SELECT Product.Id,Title, Product.Description, Image, Price,ArtistId ,FirstName,LastName " +
+                "SELECT Product.Id,Title, Product.Description,QuantitySold, Image, Price,ArtistId ,FirstName,LastName " +
                 "FROM dbo.Product,dbo.Artist where Product.ArtistId=Artist.Id Order By Product.Id asc";
 
             List<Product> result = new List<Product>();
@@ -74,7 +74,7 @@ namespace ArtShop.Data
         {
             const string SQL_STATEMENT =
 
-                  "SELECT Product.Id,Title, Product.Description, Image, Price,ArtistId ,FirstName,LastName FROM dbo.Product,dbo.Artist where Product.ArtistId = Artist.Id and Product.Id =@Id";
+                  "SELECT Product.Id,Title, Product.Description, Image, Price,ArtistId ,FirstName,LastName,QuantitySold FROM dbo.Product,dbo.Artist where Product.ArtistId = Artist.Id and Product.Id =@Id";
 
             Product product = null;
 
@@ -97,7 +97,7 @@ namespace ArtShop.Data
 
         public Product UpdateById(Product product)
         {
-            const string SQL_STATEMENT = "update Product set Title = @Title,Description = @Description,Image = @Image,Price = @Price,ArtistId = @ArtistId where Product.Id = @Id";
+            const string SQL_STATEMENT = "update Product set Title = @Title,Description = @Description,Image = @Image,Price = @Price,ArtistId = @ArtistId,QuantitySold=@QuantitySold where Product.Id = @Id";
 
             var db = DatabaseFactory.CreateDatabase(CONNECTION_NAME);
             using (DbCommand cmd = db.GetSqlStringCommand(SQL_STATEMENT))
@@ -107,6 +107,7 @@ namespace ArtShop.Data
                 db.AddInParameter(cmd, "@Image", DbType.String, product.Image);
                 db.AddInParameter(cmd, "@Price", DbType.Double, product.Price);
                 db.AddInParameter(cmd, "@ArtistId", DbType.Int32, product.Artist.Id);
+                db.AddInParameter(cmd, "@QuantitySold", DbType.Int32, product.QuantitySold);
                 db.AddInParameter(cmd, "@Id", DbType.Int32, product.Id);
 
                 db.ExecuteNonQuery(cmd);
@@ -122,6 +123,7 @@ namespace ArtShop.Data
             product.Id = GetDataValue<int>(dr, "Id");
             product.Title = GetDataValue<string>(dr, "Title");
             product.Description = GetDataValue<string>(dr, "Description");
+            product.QuantitySold = GetDataValue<int>(dr, "QuantitySold");
             product.Image = GetDataValue<string>(dr, "Image");
             product.Price = GetDataValue<double>(dr, "Price");
             product.Artist.Id = GetDataValue<int>(dr, "ArtistId");

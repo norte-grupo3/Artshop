@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using ArtShop.Entities.Model;
 using ArtShop.UI.Process;
+using System.Web.Security;
+
 
 namespace ArtShop.UI.WebSite.Controllers
 {
@@ -16,6 +18,8 @@ namespace ArtShop.UI.WebSite.Controllers
         OrderProcess op = new OrderProcess();
         OrderDetailProcess odp = new OrderDetailProcess();
         ProductProcess pp = new ProductProcess();
+
+
 
         // GET: Order
         public ActionResult Index()
@@ -28,7 +32,26 @@ namespace ArtShop.UI.WebSite.Controllers
             return View();
         }
 
-        public void CrearOrden()
+        public ActionResult CompraFinalizada()
+        {
+            return View();
+        }
+
+        public JsonResult GetOrders()
+        {
+            var ap = new OrderProcess();
+            var list = ap.ListarTodos();
+           
+            foreach (Order item in list) 
+            
+            {
+              item.Fecha = item.OrderDate.ToShortDateString();          
+            }
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CrearOrden()
         {
 
             HttpCookie cookie = HttpContext.Request.Cookies.Get("cookieCart");
@@ -38,36 +61,25 @@ namespace ArtShop.UI.WebSite.Controllers
             List<CartItem> listaItems = cip.ListarTodos().Where(x => x.CartId == Convert.ToInt32(cookie.Value)).ToList();
 
             double Total = 0;
-            foreach (CartItem item in listaItems) 
-            
+            foreach (CartItem item in listaItems)         
             {
                 Total = Total + item.Price; 
             }
-
 
             Order oOrder = new Order()
             {
                 UserId = User.Identity.GetUserId(),
                 OrderDate = DateTime.Now,
-                OrderNumber = 1,// PONER UN GUID
+                OrderNumber = 1, 
                 ItemCount = cart.ItemCount,
                 TotalPrice = Total
-
-                };
-
+             };
 
                 Order oOrderSave;
                 oOrderSave = op.AgregarOrden(oOrder);
-                    
-                   
-
+                                  
                     foreach (var item in listaItems)
                     {
-
-                        //Actualizacion cantidad vendida de producto
-                        Product oProducto = pp.ListarUno(item.ProductId);
-                        oProducto.QuantitySold += 1;                                                                  
-                        pp.EditarProduct(oProducto);
                         //Alta Detalles de orden
                         OrderDetail oDetail = new OrderDetail()
                         {
@@ -79,12 +91,8 @@ namespace ArtShop.UI.WebSite.Controllers
 
                         odp.AgregarItem(oDetail);
                     }
-
-
-
-
-           
-            
+            Response.Cookies["cookieCart"].Expires = DateTime.Now.AddDays(-1);
+            return RedirectToAction("CompraFinalizada");
 
         }
     }

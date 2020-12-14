@@ -15,7 +15,7 @@ namespace ArtShop.Data
        public Order Create (Order order) 
         
         {
-            const string SQL_STATEMENT = "insert into [dbo].[Order] (UserId,OrderDate,TotalPrice,OrderNumber,ItemCount) values (@UserId,@OrderDate,@TotalPrice,@OrderNumber,@ItemCount)";
+            const string SQL_STATEMENT = "insert into [dbo].[Order] (UserId,OrderDate,TotalPrice,OrderNumber,ItemCount) values (@UserId,@OrderDate,@TotalPrice,@OrderNumber,@ItemCount) SELECT SCOPE_IDENTITY()";
 
             var db = DatabaseFactory.CreateDatabase(CONNECTION_NAME);
             using (DbCommand cmd = db.GetSqlStringCommand(SQL_STATEMENT))
@@ -35,7 +35,7 @@ namespace ArtShop.Data
 
         public List<Order> Select()
         {
-            const string SQL_STATEMENT = "SELECT [Id],[UserId],[OrderDate],[TotalPrice],[ItemCount],[OrderNumber]  FROM [dbo].[Order] ";
+            const string SQL_STATEMENT = "SELECT [dbo].[Order].[Id],[UserId],[OrderDate],[TotalPrice],[ItemCount],[OrderNumber],[Email] FROM [dbo].[Order],[dbo].[AspNetUsers] where [dbo].[Order].[UserId]=[dbo].[AspNetUsers].[Id] order by [dbo].[Order].[Id] desc ";
 
             List<Order> result = new List<Order>();
 
@@ -69,7 +69,7 @@ namespace ArtShop.Data
 
         public Order SelectById(int id)
         {
-           const string SQL_STATEMENT = "SELECT [Id],[UserId],[OrderDate],[TotalPrice],[ItemCount]  FROM [dbo].[Order] where Id=@id";
+           const string SQL_STATEMENT = "SELECT [dbo].[Order].[Id],[UserId],[OrderDate],[TotalPrice],[ItemCount],[OrderNumber],[Email]   FROM [dbo].[Order],[dbo].[AspNetUsers] where [dbo].[Order].Id=@Id and [dbo].[Order].[UserId]=[dbo].[AspNetUsers].[Id]";
 
             Order order= null;
 
@@ -104,6 +104,7 @@ namespace ArtShop.Data
                 db.AddInParameter(cmd, "@ItemCount", DbType.Int32, order.ItemCount);
                 db.AddInParameter(cmd, "@Id", DbType.Int32, order.Id);
 
+
                 db.ExecuteNonQuery(cmd);
             }
 
@@ -119,6 +120,7 @@ namespace ArtShop.Data
             order.TotalPrice = GetDataValue<double>(dr, "TotalPrice");
             order.ItemCount = GetDataValue<int>(dr, "ItemCount");
             order.OrderNumber = GetDataValue<int>(dr, "OrderNumber");
+            order.Usuario = GetDataValue<string>(dr, "Email");
 
             return order;
         }
