@@ -23,5 +23,7 @@ namespace ArtShop.Entities.Model
         public double Price { get; set; }
         [DataMember]
         public int Quantity { get; set; }
+
+        public string Titulo { get; set; }
     }
 }

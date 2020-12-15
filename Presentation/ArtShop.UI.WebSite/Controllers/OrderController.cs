@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using ArtShop.Entities.Model;
 using ArtShop.UI.Process;
 using System.Web.Security;
-
+using Microsoft.Ajax.Utilities;
 
 namespace ArtShop.UI.WebSite.Controllers
 {
@@ -19,8 +19,6 @@ namespace ArtShop.UI.WebSite.Controllers
         OrderDetailProcess odp = new OrderDetailProcess();
         ProductProcess pp = new ProductProcess();
 
-
-
         // GET: Order
         public ActionResult Index()
         {
@@ -28,6 +26,11 @@ namespace ArtShop.UI.WebSite.Controllers
         }
         [Authorize]
         public ActionResult Pago()
+        {
+            return View();
+        }
+
+        public ActionResult Detalle()
         {
             return View();
         }
@@ -49,6 +52,22 @@ namespace ArtShop.UI.WebSite.Controllers
             }
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetItems(int Id)
+        {
+
+            List<OrderDetail> Items = new List<OrderDetail>();
+            Items = odp.ListarTodos().Where(x => x.OrderId == Id).ToList(); 
+            
+            foreach (OrderDetail item in Items) 
+            
+            {
+               var tempItem = pp.ListarUno(item.ProductId);
+                item.Titulo = tempItem.Title;
+            }
+
+            return Json(Items, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CrearOrden()

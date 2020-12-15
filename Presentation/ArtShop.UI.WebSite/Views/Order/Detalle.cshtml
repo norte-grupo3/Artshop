@@ -1,0 +1,88 @@
+﻿
+@{
+    var id = Request.Url.Segments.Last();
+    ViewBag.Title = "Detalle de la Orden";
+}
+
+<!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Detalle de la orden</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody data-bind="foreach: Items">
+                            <tr>
+
+
+                                <td data-bind="text: Titulo"></td>
+                                <td data-bind="text: '$ '+ Price()"></td>
+                                <td data-bind="text: Quantity"></td>
+
+
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <a href="/Order/Index" class="btn btn-secondary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">Volver</span>
+        </a>
+
+    </div>
+<!-- /.container-fluid -->
+
+@section scripts
+{
+    <script src="~/Scripts/knockout-3.5.1.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        var AppViewModel = function () {
+            var self = this;
+
+            self.Items = ko.mapping.fromJS([]);
+
+            var idOrden =@id;
+            $.getJSON("/Order/GetItems/"+idOrden,
+                function (data) {
+                    ko.mapping.fromJS(data, {}, self.Items);
+                });
+
+        };
+
+
+
+        var viewModel = new AppViewModel();
+        ko.applyBindings(viewModel);
+
+
+
+    </script>
+
+    }
