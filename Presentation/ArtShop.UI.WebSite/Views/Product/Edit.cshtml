@@ -5,49 +5,70 @@
     ViewBag.Title = "Editar Pintura";
 }
 
-<h2>Editar</h2>
+<div class="container-fluid">
 
-<table class="table table-hover">
-    <tr>
-        <td>Título    </td>
-        <td><input data-bind="value: Product.Title" />
-        <td />
-    </tr>
-    <tr>
-        <td>Descripción    </td>
-        <td><input data-bind="value: Product.Description" />
-        <td />
-    </tr>
-    <tr>
-        <td>Imagen     </td>
-        <td><input data-bind="value: Product.Image" />
-        <td />
-    </tr>
-    <tr>
-        <td>Precio      </td>
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Editar Pintura</h6>
+        </div>
+        <div class="card-body">
+            <div>
+                <p>
+                    <a href="/Product/Index" class="btn btn-secondary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                        <span class="text">Volver</span>
+                    </a>
+                </p>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                        <td>Título    </td>
+                        <td><input data-bind="value: Product.Title" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Descripción    </td>
+                        <td><input data-bind="value: Product.Description" Description" size="50" />
+                        </td >
+                    </tr>
+                    <tr>
+                        <td>Imagen     </td>
+                        <td><input data-bind="value: Product.Image" />
+                        </td >
+                    </tr>
+                    <tr>
+                        <td>Precio      </td>
 
-        <td><input data-bind="value: Product.Price" />
-        <td />
-    </tr>
-    <tr>
-        <td>Artista     </td>
-        <td>
-            <select data-bind="
+                        <td><input data-bind="value: Product.Price" />
+                        </td >
+                    </tr>
+                    <tr>
+                        <td>Artista     </td>
+                        <td>
+                            <select data-bind="
                         options: Artists,
                         optionsText:'FirstName',
                         optionsValue: 'Id'
                         ">
-            </select>
+                            </select>
 
-        </td>
-    </tr>
+                        </td>
+                    </tr>
+                </table>
+                <input type="button" value="Guardar" data-bind="click: EditProduct" class="btn btn-success" />
 
-</table>
-*<input type="button" value="Guardar" data-bind="click: EditProduct" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 
-<div>
-    @Html.ActionLink("Volver", "Index")
 </div>
+<!-- /.container-fluid -->
+
 
 
 
@@ -72,9 +93,9 @@
             art : ko.observable(),
 
             }
-            
+
             var idPintura =@id;
-            
+
             $.getJSON("/Product/GetProduct/"+idPintura, function (data) {
 
                 ko.mapping.fromJS(data);

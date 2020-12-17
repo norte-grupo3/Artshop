@@ -3,7 +3,7 @@
     var id = Request.Url.Segments.Last();
     ViewBag.Title = "Detalles de la Pintura";
 }
-<h3>Detalles de la Pintura</h3>
+
 
 <!-- Main Content -->
 <div id="content">
@@ -22,16 +22,45 @@
                         <p data-bind="text: Product.Description" />
 
                         <p data-bind="text: 'Precio: $'+Product.Price()" />
-                        @*<p data-bind="text: 'Artista: '+ Product.Artist.FirstName() + ' '+ Product.Artist.LastName()" />*@
+
                         <a target="_blank" rel="nofollow" href="https://undraw.co/">Agregar al carrito &rarr;</a>
-                        <p><a href="#">Agregar al carrito &rarr;</a><i class="fas fa-shopping-cart"></i></p>
+                        <p>
+                            <input data-bind="click: Agregar.bind($data,Product.Id())" type="button" value="Agregar al Carrito" class="btn btn-primary" data-target="#confirmacion" data-toggle="modal" />
+                        </p>
+                        <div>
+                            <a href="/Product/IndexFront" class="btn btn-secondary btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-left"></i>
+                                </span>
+                                <span class="text">Volver a la Galería</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div>
-            @Html.ActionLink("Volver", "IndexFront")
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Pintura agregada al Carrito
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Seguir comprando</button>
+                        <a href="/Cart/Index" class="btn btn-success">Ver Carrito</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -61,6 +90,22 @@
 
             }
 
+            AppViewModel.prototype.Agregar = function (data) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cart/AddToCart/' + idPintura,
+                    success: function (result) {
+                        Actualizar();
+                    }
+
+                }).fail(
+                    function (xhr, textStatus, err) {
+
+                    });
+
+
+            };
+
             var idPintura =@id;
 
             $.getJSON("/Product/GetProduct/"+idPintura, function (data) {
@@ -73,7 +118,7 @@
                 Product.Price(data.Price);
                Product.art(data.art);
             });
-            console.log(this.Product);
+           
 
 
 

@@ -4,40 +4,80 @@
 }
 
 
-<h2>Pinturas</h2>
-<div>
-    @Html.ActionLink("Nueva Pintura", "Create")
-</div>
-<table class="table table-hover">
-    <tr>
-        <th>Id</th>
-        <th>Título</th>
-        <th>Descripción</th>
-        <th>Imagen</th>
-        <th>Precio</th>
-        <th>Artista</th>
-        <th>Acciones</th>
+<div class="container-fluid">
 
-    </tr>
-    <tbody data-bind="foreach: Products">
-        <tr>
-            <td data-bind="text: Id"></td>
-            <td data-bind="text: Title"></td>
-            <td data-bind="text: Description"></td>
-            <td data-bind="text: Image"></td>
-            <td data-bind="text: Price"></td>
-            <td data-bind="text: Artist.FirstName() + ' ' + Artist.LastName()"></td>
-            <td>
-                <a data-bind="attr: { 'href': '@Url.Action("Edit", "Product")/' + Id() }" class="btn btn-primary">
-                    Editar
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Gestión de Pinturas</h6>
+        </div>
+        <div class="card-body">
+            <p>
+                <a href="/Product/Create" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="text">Nueva</span>
                 </a>
-                <input data-bind="click: $parent.RemoveProduct" type="button" value="Eliminar" class="btn btn-primary" />
+            </p>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Imagen</th>
+                            <th>Precio</th>
+                            <th>Artista</th>
+                            <th>Acciones</th>
 
-            </td>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Imagen</th>
+                            <th>Precio</th>
+                            <th>Artista</th>
+                            <th>Acciones</th>
 
-        </tr>
-    </tbody>
-</table>
+                        </tr>
+                    </tfoot>
+                    <tbody data-bind="foreach: Products">
+                        <tr>
+                            <td data-bind="text: Id"></td>
+                            <td data-bind="text: Title"></td>
+                            <td data-bind="text: Description"></td>
+                            <td data-bind="text: Image"></td>
+                            <td data-bind="text: Price"></td>
+                            <td data-bind="text: Artist.FirstName() + ' ' + Artist.LastName()"></td>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("Edit", "Product")/' + Id() }" class="btn btn-secondary">
+                                    Editar
+                                </a>
+                                <input data-bind="click: $parent.RemoveProduct" type="button" value="Eliminar" class="btn btn-danger" />
+
+                            </td>
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+
+
 
 
 @section scripts
@@ -51,7 +91,7 @@
 
 
             self.Products = ko.mapping.fromJS([]);
-         
+
 
             $.getJSON("/Product/GetProducts",
                 function (data) {
@@ -63,7 +103,7 @@
 
         AppViewModel.prototype.RemoveProduct = function (data) {
 
-            if (confirm('Desea Eliminar la Pintura '+data.Title()+'?')) {
+            if (confirm('Desea Eliminar la Pintura ' + data.Title() + '?')) {
                 $.ajax({
                     type: 'GET',
                     url: '/Product/RemoveProduct/' + data.Id(),
@@ -77,13 +117,13 @@
                     });
 
             } else {
-               
+
             }
 
-      
+
         };
 
- 
+
 
         var viewModel = new AppViewModel();
         ko.applyBindings(viewModel);

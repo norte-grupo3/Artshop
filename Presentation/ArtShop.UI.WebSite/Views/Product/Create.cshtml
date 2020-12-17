@@ -3,49 +3,69 @@
     ViewBag.Title = "Nueva Pintura";
 }
 
-<h2>Nueva Pintura</h2>
+<div class="container-fluid">
 
-<table class="table table-hover">
-    <tr>
-        <td>Título    </td>
-        <td><input data-bind="value: Title" />
-        <td />
-    </tr>
-    <tr>
-        <td>Descripción    </td>
-        <td><input data-bind="value: Description" />
-        <td />
-    </tr>
-    <tr>
-        <td>Imagen     </td>
-        <td><input type="file" data-bind="textInput: Image" />
-        <td />
-    </tr>
-    <tr>
-        <td>Precio      </td>
-        <td><input data-bind="textInput: Price" />
-        <td />
-    </tr>
-    <tr>
-        <td>Artista     </td>
-        <td>
-            <select data-bind="
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Nueva pintura</h6>
+        </div>
+        <div class="card-body">
+            <div>
+                <p>
+                    <a href="/Product/Index" class="btn btn-secondary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                        <span class="text">Volver</span>
+                    </a>
+                </p>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                        <td>Título    </td>
+                        <td><input data-bind="value: Title" /></td>
+
+                    </tr>
+                    <tr>
+                        <td>Descripción    </td>
+                        <td><input data-bind="value: Description" size="50"/></td>
+
+                    </tr>
+                    <tr>
+                        <td>Imagen     </td>
+                        <td><input data-bind="textInput: Image" /></td>
+
+                    </tr>
+                    <tr>
+                        <td>Precio      </td>
+                        <td><input data-bind="textInput: Price" /></td>
+
+                    </tr>
+                    <tr>
+                        <td>Artista     </td>
+                        <td>
+                            <select data-bind="
                     options: Artists,
                     optionsText:'FirstName',
                     optionsValue: 'Id',
                     value:art ">
-            </select>
+                            </select>
 
-        </td>
-    </tr>
+                        </td>
+                    </tr>
+                </table>
+                <input type="button" value="Confirmar" data-bind="click: AddProduct" class="btn btn-success" />
 
-</table>
+            </div>
+        </div>
+    </div>
 
-<input type="button" value="Agregar" data-bind="click: AddProduct" class="btn btn-primary" />
-
-<div>
-    @Html.ActionLink("Volver", "Index")
 </div>
+<!-- /.container-fluid -->
+
 
 
 
@@ -109,7 +129,7 @@
         ko.applyBindings(viewModel);
 
 
- 
+
 
     </script>
 }
