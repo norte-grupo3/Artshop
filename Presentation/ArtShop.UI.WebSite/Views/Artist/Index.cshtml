@@ -3,45 +3,77 @@
     ViewBag.Title = "Gestion de Artistas";
 }
 
-<h2>Pinturas</h2>
-<div>
-    @Html.ActionLink("Nuevo Artista", "Create")
-</div>
-<div id="content">
-    <div class="container-fluid">
-        <table class="table-responsive">
-            <thead>
-                <tr>
-                    <th style="display:none;">Id    </th>
-                    <th>FirstName    </th>
-                    <th>LastName     </th>
-                    <th>LifeSpan     </th>
-                    <th>Country      </th>
-                    <th>Description  </th>
-                    <th>TotalProducts</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: Artists">
-                <tr>
-                    <td style="display:none;" data-bind='text: Id'></td>
-                    <td data-bind='text: FirstName'></td>
-                    <td data-bind='text: LastName'></td>
-                    <td data-bind='text: LifeSpan'></td>
-                    <td data-bind='text: Country'></td>
-                    <td data-bind='text: Description'></td>
-                    <td data-bind='text: TotalProducts'></td>
-                    <td>
-                        <a data-bind="attr: { 'href': '@Url.Action("Edit", "Artist")/' + Id() }" class="btn btn-primary">
-                            Editar
-                        </a>
-                        <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-primary" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Listado de artistas</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <p>
+                    <a data-bind="attr: { 'href': '@Url.Action("Create", "Artist")'  }" class="btn btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <span class="text">Nuevo Artista</span>
+                    </a>
+                </p>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="display:none;">Id    </th>
+                                <th>Nombre    			  </th>
+                                <th>Apellido     		  </th>
+                                <th>Esperanza de vida     </th>
+                                <th>País      			  </th>
+                                <th>Descripción  		  </th>
+                                <th>Total de productos    </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th style="display:none;">Id    </th>
+                                <th>Nombre    			  </th>
+                                <th>Apellido     		  </th>
+                                <th>Esperanza de vida     </th>
+                                <th>País      			  </th>
+                                <th>Descripción  		  </th>
+                                <th>Total de productos    </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                        <tbody data-bind="foreach: Artists">
+                            <tr>
+                                <td style="display:none;" data-bind='text: Id'></td>
+                                <td data-bind='text: FirstName'></td>
+                                <td data-bind='text: LastName'></td>
+                                <td data-bind='text: LifeSpan'></td>
+                                <td data-bind='text: Country'></td>
+                                <td data-bind='text: Description'></td>
+                                <td data-bind='text: TotalProducts'></td>
+                                <td>
+                                    <a data-bind="attr: { 'href': '@Url.Action("Edit", "Artist")/' + Id() }" class="btn btn-secondary">Editar</a>
+                                    <input data-bind="click: $parent.RemoveArtist" type="button" value="Eliminar" class="btn btn-danger" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+<!-- /.container-fluid -->
 
 @section scripts
 {
